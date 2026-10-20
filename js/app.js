@@ -1,5 +1,9 @@
 "use strict";
 
+// import { films } from "./data";
+
+// import { films } from './data.js'
+
 // Bienvenue dans le fichier de travail principal de CineBook !
 // Le HTML et les données sont prêts, mais les interactions sont volontairement absentes.
 // La page contient déjà un exemple statique complet pour montrer le résultat attendu.
@@ -15,6 +19,68 @@
 // QUESTIONS : Quel identifiant correspond au catalogue ? Au prix total ?
 // TODO : créez ici des constantes explicites pour les éléments nécessaires.
 // ÉCRIVEZ VOTRE CODE ICI :
+
+const containerFilms = document.getElementById("films-container")
+// let idFilm;
+
+
+const createCardsFilms = () => {
+    films.forEach((e) => {
+        let CalcHours = Math.floor(e.duree / 60)
+        let CalcMins = e.duree % 60
+        let resultatDuree = CalcMins < 10 ? `${CalcHours} h 0${CalcMins} min` : `${CalcHours} h ${CalcMins} min`;
+        const cart = `
+        <article class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg cardFilm" data-id="${e.id}">
+          <div class="relative">
+            <img src="${e.affiche}" alt="Affiche de ${e.titre}" class="aspect-[2/3] w-full object-cover">
+                <span class="absolute bottom-3 right-3 rounded-full bg-white/95 px-3 py-1 text-xs font-extrabold shadow-lg">${e.prix} DH</span>
+          </div>
+          <div class="p-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-cine-red">
+                ${e.genre}
+            </p>
+             <h3 class="mt-1 text-lg font-black">
+                ${e.titre}
+            </h3>
+            <p class="mt-2 text-sm text-slate-500">${resultatDuree}</p>
+            <button type="button" data-film-id=${e.id} data-clicked = "0" class="mt-4 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 font-extrabold text-slate-700 choixFilm">
+                Choisir ce film 
+            </button>
+          </div>
+        </article>
+
+        `
+        containerFilms.innerHTML += cart
+    })
+}
+createCardsFilms()
+
+
+// function changeDesign(){
+    const btns = document.querySelectorAll(".choixFilm")
+    
+    btns.forEach((ele)=>{
+        ele.addEventListener('click', (e)=>{
+            console.log("Film's ID: ",e.target.dataset.filmId)
+            
+            if(ele.dataset.clicked  == "1"){
+                ele.className = "mt-4 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 font-extrabold text-slate-700"
+                ele.textContent = "Choisir ce film"
+                ele.parentElement.parentElement.classList = "overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg"
+                ele.dataset.clicked = "0"
+            }else{
+                ele.classList = "mt-4 w-full rounded-xl bg-cine-red px-4 py-3 font-extrabold text-white"
+                ele.textContent = "Sélectionné"
+                ele.parentElement.parentElement.classList = "overflow-hidden rounded-2xl border border-red-400 bg-white shadow-xl ring-2 ring-red-100"
+                ele.dataset.clicked = "1"
+            }
+        })
+    })
+// }
+// changeDesign()
+
+
+
 
 
 // ==================================================

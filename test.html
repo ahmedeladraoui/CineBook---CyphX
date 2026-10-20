@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="div1">
+        <p>DIV1</p>
+        <p>DIV1</p>
+        <p>DIV1</p>
+        <p>DIV1</p>
+        <p>DIV1</p>
+        <p>DIV1</p>
+    </div>
+    <div class="div2">
+        <a href="#">DIV2</a>
+        <a href="#">DIV2</a>
+        <a href="#">DIV2</a>
+    </div>
+    <div class="div2">
+        <h4>DIV3</h4>
+        <h4>DIV3</h4>
+        <h4>DIV3</h4>
+        <h4>DIV3</h4>
+    </div>
+    <div class="div2">
+        <h4>DIV3iiii</h4>
+        <h4>DIV3iiii</h4>
+        <h4>DIV3iiii</h4>
+        <h4>DIV3iiii</h4>
+    </div>
+
+    <script>
+
+        console.log("________________Quuer Selector All_______________")
+        const div2 = document.querySelectorAll(".div2")
+        div2.forEach((e)=>{
+            console.log(e.children )
+        })
+        console.log(div2.children)
+        console.log(div2.length)
+
+        console.log("________________class name_______________")
+        const div1 = document.getElementsByClassName("div1")
+        console.log(div1.length)
+        console.log(div1)
+        console.log(div1[0])
+        console.log(div1[0].children)
+        
+    </script>
+</body>
+</html>
