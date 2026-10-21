@@ -77,19 +77,17 @@
 
     <section id="reservation" class="border-y border-slate-200 bg-slate-100/80">
       <div class="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[1fr_360px]">
-        <div class="space-y-8">
-          <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-lg sm:p-8" aria-labelledby="details-title">
+        <div class="space-y-8" >
+          <!-- TODO APPRENANT : remplacer ce modèle par les données du film cliqué. -->
+          <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-lg sm:p-8" aria-labelledby="details-title" id="filmsChoix">
             <p class="mb-1 text-[.7rem] font-extrabold uppercase tracking-[.2em] text-cine-red">Étape 1</p><h2 id="details-title" class="text-2xl font-black tracking-tight sm:text-3xl">Votre film</h2>
-            <!-- TODO APPRENANT : remplacer ce modèle par les données du film cliqué. -->
-            <div id="film-details" class="mt-6 grid gap-5 rounded-2xl bg-slate-50 p-5 sm:grid-cols-[100px_1fr]">
-              <img src="assets/images/mission-galaxie.png" alt="Mission Galaxie" class="aspect-[2/3] w-24 rounded-xl object-cover shadow-md">
-              <div><div class="flex flex-wrap items-center gap-2"><h3 class="text-xl font-black">Mission Galaxie</h3><span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">55 DH</span></div><p class="mt-2 text-sm font-semibold text-slate-500">Science-fiction · 2 h 04 min</p><p class="mt-3 leading-7 text-slate-600">Une exploratrice suit un signal inconnu jusqu’aux confins d’une galaxie oubliée.</p></div>
-            </div>
+            
+            
           </section>
-
+<!-- TODO APPRENANT : générer un bouton pour chaque séance du film sélectionné. -->
           <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-lg sm:p-8" aria-labelledby="seances-title">
             <p class="mb-1 text-[.7rem] font-extrabold uppercase tracking-[.2em] text-cine-red">Étape 2</p><h2 id="seances-title" class="text-2xl font-black tracking-tight sm:text-3xl">Choisissez une séance</h2>
-            <!-- TODO APPRENANT : générer un bouton pour chaque séance du film sélectionné. -->
+            
             <div id="seances-container" class="mt-6 flex flex-wrap gap-3">
               <button type="button" data-seance-id="101" class="rounded-xl bg-cine-red px-5 py-3 font-bold text-white shadow-md">14:00</button>
               <button type="button" data-seance-id="102" class="rounded-xl border border-slate-300 bg-slate-50 px-5 py-3 font-bold text-slate-700">17:30</button>

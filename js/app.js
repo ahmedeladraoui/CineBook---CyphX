@@ -21,7 +21,7 @@
 // ÉCRIVEZ VOTRE CODE ICI :
 
 const containerFilms = document.getElementById("films-container")
-// let idFilm;
+let idFilm;
 
 
 const createCardsFilms = () => {
@@ -54,33 +54,70 @@ const createCardsFilms = () => {
     })
 }
 createCardsFilms()
-
+const filmsIds = []
+const newObjs = []
 
 // function changeDesign(){
     const btns = document.querySelectorAll(".choixFilm")
     
     btns.forEach((ele)=>{
         ele.addEventListener('click', (e)=>{
-            console.log("Film's ID: ",e.target.dataset.filmId)
-            
+            idFilm = Number(e.target.dataset.filmId)
             if(ele.dataset.clicked  == "1"){
                 ele.className = "mt-4 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 font-extrabold text-slate-700"
                 ele.textContent = "Choisir ce film"
                 ele.parentElement.parentElement.classList = "overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg"
                 ele.dataset.clicked = "0"
+                
+                console.log(idFilm)
+                if(filmsIds.length > 0){
+                    filmsIds.splice(filmsIds.indexOf(idFilm),1)
+                    newObjs.splice(filmsIds.indexOf(idFilm),1)
+                    console.log("Unselct",filmsIds)
+                    afficherFilmsChoix()
+                    console.log(newObjs)
+                }
             }else{
                 ele.classList = "mt-4 w-full rounded-xl bg-cine-red px-4 py-3 font-extrabold text-white"
                 ele.textContent = "Sélectionné"
                 ele.parentElement.parentElement.classList = "overflow-hidden rounded-2xl border border-red-400 bg-white shadow-xl ring-2 ring-red-100"
                 ele.dataset.clicked = "1"
+                console.log(idFilm)
+                filmsIds.push(idFilm)
+                if(idFilm !== null){
+                    newObjs.push(films.find((e)=> e.id == idFilm))
+                    afficherFilmsChoix()
+                    console.log("select=>",newObjs)
+                }
             }
         })
     })
-// }
-// changeDesign()
 
 
 
+const containerFilmsChoix = document.getElementById("filmsChoix")
+const filmDetail = document.getElementById("film-details")
+function afficherFilmsChoix(){
+    containerFilmsChoix.innerHTML = ''
+    
+    if(filmsIds.length > 0 ){
+        newObjs.forEach((e)=>{
+        let CalcHours = Math.floor(e.duree / 60)
+        let CalcMins = e.duree % 60
+        let resultatDuree = CalcMins < 10 ? `${CalcHours} h 0${CalcMins} min` : `${CalcHours} h ${CalcMins} min`;
+        containerFilmsChoix.innerHTML += `
+            <div id="film-details" class="mt-6 grid gap-5 rounded-2xl bg-slate-50 p-5 sm:grid-cols-[100px_1fr]">
+              <img src="${e.affiche}" alt="${e.titre}" class="aspect-[2/3] w-24 rounded-xl object-cover shadow-md">
+              <div>
+              <div class="flex flex-wrap items-center gap-2"><h3 class="text-xl font-black">${e.titre}</h3><span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">${e.prix} DH</span>
+              </div><p class="mt-2 text-sm font-semibold text-slate-500">Science-fiction · ${resultatDuree}</p>
+              <p class="mt-3 leading-7 text-slate-600">${e.description}</p></div>
+            </div>
+        `
+    })
+    
+}
+}
 
 
 // ==================================================
