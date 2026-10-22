@@ -21,6 +21,8 @@
 // ÉCRIVEZ VOTRE CODE ICI :
 
 const containerFilms = document.getElementById("films-container")
+const filmsIds = []
+const newObjs = []
 let idFilm;
 
 
@@ -54,8 +56,7 @@ const createCardsFilms = () => {
     })
 }
 createCardsFilms()
-const filmsIds = []
-const newObjs = []
+
 
     const btns = document.querySelectorAll(".choixFilm")
     
@@ -70,9 +71,11 @@ const newObjs = []
                 console.log("FILM ID clicked  = 1=>",idFilm)
                 if(newObjs.length > 0){
                     newObjs.splice(filmsIds.indexOf(idFilm),1)
+
                     filmsIds.splice(filmsIds.indexOf(idFilm),1)
                     console.log("Unselct",filmsIds)
                     afficherFilmsChoix()
+                    afficherSeance()
                     console.log(newObjs)
                 }
             }else{
@@ -84,7 +87,9 @@ const newObjs = []
                 if(idFilm !== undefined){
                     filmsIds.push(idFilm)
                     newObjs.push(films.find((e)=> e.id == idFilm))
+                    
                     afficherFilmsChoix()
+                    afficherSeance()
                     console.log("select=>",newObjs)
                 }
             }
@@ -114,6 +119,30 @@ function afficherFilmsChoix(){
 }
 }
 
+const seanceContainer = document.getElementById("seances-container")
+
+function afficherSeance(){
+    seanceContainer.innerHTML = ``
+
+    // seance = newObjs.filter((e)=>e.id == idFilm)
+    if(newObjs.length > 0){
+        console.log("newObjs",newObjs)
+        newObjs.forEach((ele)=>{
+            seanceContainer.innerHTML += `
+                <div class="w-full mb-4">
+                    <p class="mb-3 text-[.7rem] font-extrabold uppercase tracking-[.2em] text-cine-red">Votre Film: ${ele.titre}</p>
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        ${ele.seances.map(e=>`<button type="radio" data-seance-id="${e.id}" class="rounded-xl border border-slate-300 bg-slate-50 px-5 py-3 font-bold text-slate-700">${e.horaire}</button>`)}
+                    </div>
+                    
+                    <hr class="w-full border-slate-200">
+                </div>
+            `
+            
+        })
+
+    }
+}
 
 // ==================================================
 // 0 BIS - MÉMORISER L'ÉTAT DE L'APPLICATION
