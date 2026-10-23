@@ -77,21 +77,18 @@ btns.forEach((ele) => {
                 console.log("Unselct", filmsIds)
                 afficherFilmsChoix()
                 afficherSeance()
-                console.log(newObjs)
             }
         } else {
-            ele.classList = "mt-4 w-full rounded-xl bg-cine-red px-4 py-3 font-extrabold text-white"
+            ele.className = "mt-4 w-full rounded-xl bg-cine-red px-4 py-3 font-extrabold text-white"
             ele.textContent = "Sélectionné"
-            ele.parentElement.parentElement.classList = "overflow-hidden rounded-2xl border border-red-400 bg-white shadow-xl ring-2 ring-red-100"
+            ele.parentElement.parentElement.className = "overflow-hidden rounded-2xl border border-red-400 bg-white shadow-xl ring-2 ring-red-100"
             ele.dataset.clicked = "1"
             console.log("FILM ID clicked  = 0=>", idFilm)
             if (idFilm !== undefined) {
                 filmsIds.push(idFilm)
                 newObjs.push(films.find((e) => e.id == idFilm))
-
                 afficherFilmsChoix()
                 afficherSeance()
-                console.log("select=>", newObjs)
             }
         }
     })
@@ -122,11 +119,11 @@ function afficherFilmsChoix() {
 
 const seanceContainer = document.getElementById("seances-container")
 
-
+let seanceId;
+let filmId;
 function afficherSeance() {
     seanceContainer.innerHTML = ``
 
-    // seance = newObjs.filter((e)=>e.id == idFilm)
     if (newObjs.length > 0) {
         console.log("newObjs", newObjs)
         newObjs.forEach((ele) => {
@@ -134,7 +131,7 @@ function afficherSeance() {
                 <div class="w-full mb-4">
                     <p class="mb-3 text-[.7rem] font-extrabold uppercase tracking-[.2em] text-cine-red">Votre Film: ${ele.titre}</p>
                     <div class="flex flex-wrap gap-3 mb-4">
-                        ${ele.seances.map(e => `<button type="button" data-film-id="${ele.id}" data-seance-id="${e.id}" class="rounded-xl border border-slate-300 bg-slate-50 px-5 py-3 font-bold text-slate-700 seanceFilm">${e.horaire}</button>`)}
+                        ${ele.seances.map(e => `<button type="button" data-film-id="${ele.id}" data-seance-id="${e.id}" class="rounded-xl border border-slate-300 bg-slate-50 px-5 py-3 font-bold text-slate-700 seanceFilm">${e.horaire}</button>`).join("")}
                     </div>
                     <hr class="w-full border-slate-200">
                 </div>
@@ -143,26 +140,23 @@ function afficherSeance() {
             btsnSeance.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     let divBtns = btn.parentElement.querySelectorAll(".seanceFilm")
-                    
-                    let filmId = Number(e.target.dataset.filmId)
-                    let seanceId = Number(e.target.dataset.seanceId)
-                    console.log(filmId)
-                    console.log(seanceId)
 
-                    let found = seanceChoix.find(e=> e.id == filmId)
+                    filmId = Number(e.target.dataset.filmId)
+                    seanceId = Number(e.target.dataset.seanceId)
 
-                    if(found == undefined){
+                    let found = seanceChoix.find(e => e.id == filmId)
+
+                    if (found == undefined) {
                         seanceChoix.push({
                             id: filmId,
                             seanceId: seanceId
                         })
-                    }else{
+                    } else {
                         found.seanceId = seanceId
                     }
 
                     divBtns.forEach((ele) => {
-                        ele.className = "rounded-xl border border-slate-300 bg-slate-50 px-5 py-3 font-bold text-slate-700 seanceFilm"
-                        console.log("seance",seanceChoix)
+                        ele.className = `rounded-xl border border-slate-300 bg-slate-50 text-slate-700 px-5 py-3 font-bold seanceFilm`
                     })
                     btn.className = "rounded-xl bg-cine-red px-5 py-3 font-bold text-white shadow-md seanceFilm"
                 })
@@ -170,10 +164,25 @@ function afficherSeance() {
         })
     }
 
-    
 }
 
 
+const sieges = document.getElementById("sieges-container")
+function afficherSieges(){
+    sieges.innerHTML = ``
+
+    for(let j = 0; j < rangees.length; j++){
+
+        sieges.innerHTML += `<span class="self-center text-xs font-extrabold text-slate-500">${rangees[j]}</span>`
+    for(let i = 0 ; i < siegesParRangee; i++){
+            sieges.innerHTML +=`
+            <button class="aspect-square rounded-lg bg-blue-600 text-xs font-bold text-white">${rangees[j]}${i+1}</button>
+            `
+        }
+    }
+
+}
+afficherSieges()
 
 
 // ==================================================
